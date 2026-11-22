@@ -99,8 +99,8 @@
     .consoles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
     .console { text-align: center; background: #fafafa; border-radius: 12px; padding: 0.6rem; border: 1px solid #eee; }
     .console img { width: 100%; height: 6.5rem; object-fit: contain; }
-    .console p { margin: 0.35rem 0 0; font-weight: 700; font-size: 0.95rem; }
-    .console small { color: var(--muted); font-weight: 400; }
+    .console p { margin: 0.35rem 0 0; font-weight: 700; font-size: 0.95rem; line-height: 1.25; }
+    .console small { color: var(--muted); font-weight: 400; display: block; }
 
     /* Game grid */
     .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
@@ -218,10 +218,22 @@
     </section>
 
     <section class="panel" id="consoles">
-      <div class="panel-head"><img src="images/characters/bowser.webp" alt="" width="240" height="240"><h2>My consoles</h2></div>
+      <div class="panel-head"><img src="images/characters/bowser.webp" alt="" width="240" height="240"><h2>Consoles &amp; accessories</h2></div>
+      <h3 class="sub">Consoles</h3>
       <div class="consoles">
-        <div class="console"><img src="images/consoles/switch-2.webp" alt="Nintendo Switch 2 with Joy-Con 2 and dock" width="480" height="205" loading="lazy"><p>Nintendo Switch 2</p></div>
+        <div class="console"><img src="images/consoles/switch-2.webp" alt="Nintendo Switch 2 with Joy-Con 2 and dock" width="480" height="254" loading="lazy"><p>Nintendo Switch 2</p></div>
         <div class="console"><img src="images/consoles/switch-lite-yellow.webp" alt="Yellow Nintendo Switch Lite" width="480" height="210" loading="lazy"><p>Nintendo Switch Lite <small>(Yellow)</small></p></div>
+      </div>
+      <h3 class="sub">Controllers</h3>
+      <div class="consoles">
+        <div class="console"><img src="images/consoles/8bitdo-pro-2-g-classic.webp" alt="8BitDo Pro 2 Bluetooth Controller, G Classic Edition, grey with purple buttons" width="480" height="350" loading="lazy"><p>8BitDo Pro 2 <small>(G Classic Edition)</small></p></div>
+        <div class="console"><img src="images/consoles/switch-2-pro-controller.webp" alt="Official Nintendo Switch 2 Pro Controller in black" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Pro Controller</p></div>
+      </div>
+      <h3 class="sub">Accessories</h3>
+      <div class="consoles">
+        <div class="console"><img src="images/consoles/jsaux-split-case-switch-2.webp" alt="JSAUX Split Protective Case for Nintendo Switch 2, with grip and front cover" width="480" height="480" loading="lazy"><p>JSAUX Split Protective Case <small>(Switch 2, holds 10 game cards)</small></p></div>
+        <div class="console"><img src="images/consoles/switch-lite-flip-cover-grey.webp" alt="Official grey Nintendo Switch Lite Flip Cover, open, showing the inside" width="480" height="270" loading="lazy"><p>Nintendo Switch Lite Flip Cover <small>(Grey, with screen protector)</small></p></div>
+        <div class="console"><img src="images/consoles/switch-2-dock.webp" alt="Nintendo Switch 2 Dock Set, UK, with dock, mains adapter and cables" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Dock&nbsp;×&nbsp;2 <small>(bedroom and living room)</small></p></div>
       </div>
       <p class="hint">Switch 2 games won't play on the Switch Lite. Everything else plays on both.</p>
     </section>
@@ -281,7 +293,7 @@
      - On every publish, bump SITE_VERSION and version.json to the same new value
        so the iPhone Home Screen app picks up the new page.
   ============================================================================ */
-  var SITE_VERSION = "2026-11-22-3";
+  var SITE_VERSION = "2026-11-22-4";
   var PAGE_URL = "https://kk544nmsbt-sudo.github.io/nintendo-games/";
   var FRIEND_CODE = "SW-1144-5258-9613";
   var GAMER_NAME = "Uglybob";
