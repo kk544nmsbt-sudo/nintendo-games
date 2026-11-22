@@ -48,8 +48,8 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 0; padding: 0; list-style: none; }
     .stats li { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px; padding: 0.15rem 0.7rem; font-size: 0.9rem; font-weight: 600; }
     .stats li.done { background: var(--yellow); color: #3a2a00; border-color: var(--yellow); }
-    .cast { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.2rem; margin-top: 0.8rem; height: 5.4rem; }
-    .cast img { height: 100%; width: auto; max-width: 15%; object-fit: contain; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
+    .cast { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.2rem; margin-top: 0.8rem; height: 6.4rem; }
+    .cast img { flex: 1 1 0; min-width: 0; height: 100%; width: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
     .cast img.small { height: 78%; }
 
     /* Panels */
@@ -110,7 +110,7 @@
     .b-ed { background: #e3ecff; color: var(--blue-dark); }
     .b-free { background: #fff1bf; color: #5c4600; }
     .b-date { background: var(--blue); color: #fff; }
-    .tick { position: absolute; top: 6px; right: 6px; width: 1.9rem; height: 1.9rem; border-radius: 7px; display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none; }
+    .tick { position: absolute; top: 6px; right: 6px; width: 1.9rem; height: 1.9rem; border-radius: 7px; display: flex; align-items: center; justify-content: center; z-index: 2; cursor: pointer; padding: 0; -webkit-tap-highlight-color: transparent; }
     .tick.no { border: 2.5px solid #fff; background: rgba(0, 0, 0, 0.28); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
     .tick.yes { background: var(--green); border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); }
     .tick.yes svg { width: 1.2rem; height: 1.2rem; }
@@ -138,8 +138,10 @@
       <p>Every game on my shelf and on my Switch, plus what's on the way and what I'm after next.</p>
       <ul class="stats" id="stats"></ul>
       <div class="cast" aria-hidden="true">
+        <img src="images/characters/peach.webp" alt="" width="133" height="240">
         <img src="images/characters/mario.webp" alt="" width="112" height="240">
         <img src="images/characters/link.webp" alt="" width="98" height="240" class="small">
+        <img src="images/characters/zelda.webp" alt="" width="126" height="240" class="small">
         <img src="images/characters/kirby.webp" alt="" width="240" height="222" class="small">
         <img src="images/characters/dk.webp" alt="" width="240" height="220">
         <img src="images/characters/pikachu.webp" alt="" width="240" height="240" class="small">
@@ -1079,6 +1081,9 @@
 
   (function () {
     var all = COLLECTION.games;
+    var SAVE_KEY = 'nintendo-completed-v1', saved = {};
+    try { saved = JSON.parse(localStorage.getItem(SAVE_KEY) || '{}') || {}; } catch (e) { saved = {}; }
+    all.forEach(function (g) { if (saved.hasOwnProperty(g.id)) g.completed = !!saved[g.id]; });
     var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
     document.getElementById('friend-code').textContent = FRIEND_CODE;
@@ -1099,8 +1104,7 @@
       if (g.releaseDate) b += '<span class="badge b-date">Out ' + longDate(g.releaseDate) + '</span>';
       var tick = '';
       if (g.completed !== undefined && !g.releaseDate) {
-        tick = g.completed ? '<span class="tick yes" title="Completed" role="img" aria-label="Completed">' + TICK + '</span>'
-                           : '<span class="tick no" title="Not completed yet" role="img" aria-label="Not completed yet"></span>';
+        tick = '<button type="button" class="tick ' + (g.completed ? 'yes' : 'no') + '" data-id="' + esc(g.id) + '" aria-pressed="' + (g.completed ? 'true' : 'false') + '" title="' + (g.completed ? 'Completed (tap to untick)' : 'Tap to mark as completed') + '" aria-label="' + esc(g.title) + ' completed">' + (g.completed ? TICK : '') + '</button>';
       }
       var img = '<img src="' + esc(g.cover) + '" alt="' + esc(g.title) + ' cover" width="300" height="480" loading="lazy" decoding="async">';
       var cover = g.url ? '<a class="cover" href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" title="Open the official page for ' + esc(g.title) + '">' + img + '</a>'
@@ -1175,6 +1179,15 @@
 
     ['input', 'change'].forEach(function (ev) {
       Object.keys(els).forEach(function (k) { els[k].addEventListener(ev, render); });
+    });
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('button.tick') : null;
+      if (!t) return;
+      e.preventDefault();
+      var id = t.getAttribute('data-id');
+      all.forEach(function (g) { if (g.id === id) { g.completed = !g.completed; saved[id] = g.completed; } });
+      try { localStorage.setItem(SAVE_KEY, JSON.stringify(saved)); } catch (err) {}
+      stats(); render();
     });
     stats();
     render();
