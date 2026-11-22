@@ -110,10 +110,12 @@
     .b-ed { background: #e3ecff; color: var(--blue-dark); }
     .b-free { background: #fff1bf; color: #5c4600; }
     .b-date { background: var(--blue); color: #fff; }
-    .tick { position: absolute; top: 6px; right: 6px; width: 1.9rem; height: 1.9rem; border-radius: 7px; display: flex; align-items: center; justify-content: center; z-index: 2; cursor: pointer; padding: 0; -webkit-tap-highlight-color: transparent; }
-    .tick.no { border: 2.5px solid #fff; background: rgba(0, 0, 0, 0.28); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
-    .tick.yes { background: var(--green); border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); }
-    .tick.yes svg { width: 1.2rem; height: 1.2rem; }
+    .done-btn { display: flex; align-items: center; gap: 0.45rem; width: 100%; margin-top: 0.45rem; padding: 0.35rem 0.5rem; border: 2px solid #d9cfcf; border-radius: 10px; background: #fff; color: var(--muted); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .done-btn.yes { border-color: var(--green); background: #e8f6ee; color: var(--green); }
+    .tick { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+    .tick.no { border: 2px solid #b9aeae; background: #fff; }
+    .tick.yes { background: var(--green); border: 2px solid var(--green); }
+    .tick.yes svg { width: 0.95rem; height: 0.95rem; }
     .empty { text-align: center; color: var(--muted); padding: 1.2rem 0.5rem; margin: 0; }
     .empty img { display: block; width: 4.5rem; height: auto; margin: 0 auto 0.4rem; }
     .key { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; font-size: 0.85rem; color: var(--muted); margin: 0.8rem 0 0; }
@@ -1104,13 +1106,13 @@
       if (g.releaseDate) b += '<span class="badge b-date">Out ' + longDate(g.releaseDate) + '</span>';
       var tick = '';
       if (g.completed !== undefined && !g.releaseDate) {
-        tick = '<button type="button" class="tick ' + (g.completed ? 'yes' : 'no') + '" data-id="' + esc(g.id) + '" aria-pressed="' + (g.completed ? 'true' : 'false') + '" title="' + (g.completed ? 'Completed (tap to untick)' : 'Tap to mark as completed') + '" aria-label="' + esc(g.title) + ' completed">' + (g.completed ? TICK : '') + '</button>';
+        tick = '<button type="button" class="done-btn ' + (g.completed ? 'yes' : 'no') + '" data-id="' + esc(g.id) + '" aria-pressed="' + (g.completed ? 'true' : 'false') + '"><span class="tick ' + (g.completed ? 'yes' : 'no') + '">' + (g.completed ? TICK : '') + '</span>' + (g.completed ? 'Completed' : 'Completed?') + '</button>';
       }
       var img = '<img src="' + esc(g.cover) + '" alt="' + esc(g.title) + ' cover" width="300" height="480" loading="lazy" decoding="async">';
       var cover = g.url ? '<a class="cover" href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" title="Open the official page for ' + esc(g.title) + '">' + img + '</a>'
                         : '<span class="cover">' + img + '</span>';
-      return '<div class="game">' + tick + cover + '<h4>' + esc(g.title) + '</h4>' +
-        (g.publisher ? '<p class="pub">' + esc(g.publisher) + '</p>' : '') + '<div class="badges">' + b + '</div></div>';
+      return '<div class="game">' + cover + '<h4>' + esc(g.title) + '</h4>' +
+        (g.publisher ? '<p class="pub">' + esc(g.publisher) + '</p>' : '') + '<div class="badges">' + b + '</div>' + tick + '</div>';
     }
 
     var els = {
@@ -1181,7 +1183,7 @@
       Object.keys(els).forEach(function (k) { els[k].addEventListener(ev, render); });
     });
     document.addEventListener('click', function (e) {
-      var t = e.target.closest ? e.target.closest('button.tick') : null;
+      var t = e.target.closest ? e.target.closest('button.done-btn') : null;
       if (!t) return;
       e.preventDefault();
       var id = t.getAttribute('data-id');
