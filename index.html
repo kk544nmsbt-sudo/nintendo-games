@@ -3,7 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="description" content="Rich's Nintendo Switch and Switch 2 game collection: physical, digital, pre-orders and wish list.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="My Nintendo Games">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#e60012">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <title>Rich's Nintendo Collection</title>
   <style>
     :root {
@@ -128,7 +137,26 @@
 
     footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 1rem 0 0; }
     footer p { margin: 0.3rem 0; }
-    .share img { display: block; margin: 0.6rem auto 0; }
+    .share { margin-top: 0.8rem; }
+    .share img { display: block; margin: 0.6rem auto 0.35rem; }
+    .share-bar { margin: 0.7rem 0 0; }
+    .share-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .share-btn, .open-browser {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.45rem 0.95rem; border-radius: 999px; font: inherit; font-size: 0.92rem;
+      font-weight: 700; line-height: 1.2; cursor: pointer; text-decoration: none;
+      border: 2px solid var(--red); box-sizing: border-box; max-width: 100%;
+    }
+    .share-btn { background: var(--red); color: #fff; }
+    .share-btn:hover, .open-browser:hover { filter: brightness(1.05); }
+    .open-browser { background: #fff; color: var(--red); }
+    .share-url { margin: 0.45rem 0 0; font-size: 0.78rem; color: var(--muted); word-break: break-all; }
+    .share-status { margin: 0.2rem 0 0; min-height: 1.2em; font-size: 0.85rem; font-weight: 700; color: var(--green); }
+    header.hero .share-bar { margin: 0.85rem 0 0; }
+    header.hero .share-btn { background: #fff; color: var(--red); border-color: #fff; }
+    header.hero .open-browser { background: transparent; color: #fff; border-color: #fff; }
+    header.hero .share-url { color: rgba(255,255,255,0.92); }
+    header.hero .share-status { color: var(--yellow); }
     .visits { margin: 0.8rem 0 0; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--ink); font-size: 1.1rem; }
     .visits img { height: 34px; width: auto; }
     .small-print { font-size: 0.78rem; margin-top: 0.8rem; }
@@ -139,6 +167,14 @@
     <header class="hero">
       <h1>Rich's Nintendo Collection</h1>
       <p>Every game on my shelf and on my Switch, plus what's on the way and what I'm after next.</p>
+      <div class="share-bar">
+        <div class="share-actions">
+          <button type="button" class="share-btn" data-share>Share this page</button>
+          <a class="open-browser" href="https://kk544nmsbt-sudo.github.io/nintendo-games/" target="_blank" rel="noopener">Open in browser</a>
+        </div>
+        <p class="share-url">https://kk544nmsbt-sudo.github.io/nintendo-games/</p>
+        <p class="share-status" data-share-status aria-live="polite"></p>
+      </div>
       <ul class="stats" id="stats"></ul>
       <div class="cast" aria-hidden="true">
         <img src="images/characters/peach.webp" alt="" width="133" height="240">
@@ -220,7 +256,18 @@
 
     <footer>
       <p>Last updated 22 November 2026</p>
-      <div class="share"><img src="qr.png" alt="QR code for this page" width="110" height="110" loading="lazy"><p>Scan to share this page</p></div>
+      <div class="share">
+        <img src="qr.png" alt="QR code for this page" width="110" height="110" loading="lazy">
+        <p>Scan to share this page</p>
+      <div class="share-bar">
+        <div class="share-actions">
+          <button type="button" class="share-btn" data-share>Share this page</button>
+          <a class="open-browser" href="https://kk544nmsbt-sudo.github.io/nintendo-games/" target="_blank" rel="noopener">Open in browser</a>
+        </div>
+        <p class="share-url">https://kk544nmsbt-sudo.github.io/nintendo-games/</p>
+        <p class="share-status" data-share-status aria-live="polite"></p>
+      </div>
+      </div>
       <p class="visits"><span>Visitors:</span><img src="https://hits.sh/kk544nmsbt-sudo.github.io/nintendo-games.svg?label=Visits&amp;color=e60012&amp;labelColor=333333" alt="Visit count" height="34" loading="lazy" referrerpolicy="no-referrer"></p>
       <p class="small-print">A personal fan page, not affiliated with Nintendo. Game covers and characters are © Nintendo and their publishers.</p>
     </footer>
@@ -237,7 +284,13 @@
      - preorders: move a game into "games" (format physical/digital) once it arrives.
      - wishlist: add objects like
        { "title": "Game name", "platform": "Switch 2", "cover": "images/covers/x.webp", "url": "https://..." }
+       Optional "notes" (for example "Out 2027" or "Bundle") shows as a badge.
+       Optional "firstParty": true lists Nintendo-published titles first.
+     - On every publish, bump SITE_VERSION and version.json to the same new value
+       so the iPhone Home Screen app picks up the new page.
   ============================================================================ */
+  var SITE_VERSION = "2026-11-22-2";
+  var PAGE_URL = "https://kk544nmsbt-sudo.github.io/nintendo-games/";
   var FRIEND_CODE = "SW-1144-5258-9613";
   var GAMER_NAME = "Uglybob";
   var COLLECTION = {
@@ -1054,10 +1107,41 @@
  ],
  "wishlist": [
   {
+   "id": "arcade-archives-vs-mario",
+   "title": "Arcade Archives VS. SUPER MARIO BROS.",
+   "platform": "Switch",
+   "publisher": "HAMSTER",
+   "firstParty": false,
+   "cover": "images/covers/arcade-archives-vs-mario.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Arcade-Archives-VS-SUPER-MARIO-BROS-1320846.html",
+   "coverType": "art"
+  },
+  {
+   "id": "castlevania-dominus",
+   "title": "Castlevania: Dominus Collection",
+   "platform": "Switch",
+   "publisher": "Konami",
+   "firstParty": false,
+   "cover": "images/covers/castlevania-dominus.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Castlevania-Dominus-Collection-2639407.html",
+   "coverType": "art"
+  },
+  {
+   "id": "golden-tee-arcade-classics",
+   "title": "Golden Tee Arcade Classics",
+   "platform": "Switch",
+   "publisher": "Atari",
+   "firstParty": false,
+   "cover": "images/covers/golden-tee-arcade-classics.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Golden-Tee-Arcade-Classics-2864727.html",
+   "coverType": "art"
+  },
+  {
    "id": "hollow-knight-s2",
    "title": "Hollow Knight – Nintendo Switch 2 Edition",
    "platform": "Switch 2",
    "publisher": "Team Cherry",
+   "firstParty": false,
    "cover": "images/covers/hollow-knight-s2.webp",
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Hollow-Knight-Nintendo-Switch-2-Edition-3016593.html",
    "coverType": "art"
@@ -1067,13 +1151,178 @@
    "title": "Hollow Knight: Silksong – Nintendo Switch 2 Edition",
    "platform": "Switch 2",
    "publisher": "Team Cherry",
+   "firstParty": false,
    "cover": "images/covers/silksong-s2.webp",
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Hollow-Knight-Silksong-Nintendo-Switch-2-Edition-2908803.html",
+   "coverType": "art"
+  },
+  {
+   "id": "pragmata",
+   "title": "PRAGMATA",
+   "platform": "Switch 2",
+   "publisher": "Capcom",
+   "firstParty": false,
+   "cover": "images/covers/pragmata.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/PRAGMATA-2987033.html",
+   "coverType": "art"
+  },
+  {
+   "id": "red-dead-redemption",
+   "title": "Red Dead Redemption",
+   "platform": "Switch",
+   "publisher": "Rockstar Games",
+   "firstParty": false,
+   "cover": "images/covers/red-dead-redemption.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Red-Dead-Redemption-2427365.html",
+   "coverType": "art"
+  },
+  {
+   "id": "re7-gold-s2",
+   "title": "Resident Evil 7 biohazard Gold Edition",
+   "platform": "Switch 2",
+   "publisher": "Capcom",
+   "firstParty": false,
+   "cover": "images/covers/re7-gold-s2.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Resident-Evil-7-biohazard-Gold-Edition-2950806.html",
+   "coverType": "art"
+  },
+  {
+   "id": "re7-village-gold-bundle",
+   "title": "Resident Evil 7 Gold Edition & Village Gold Edition",
+   "platform": "Switch 2",
+   "publisher": "Capcom",
+   "firstParty": false,
+   "notes": "Bundle",
+   "cover": "images/covers/re7-village-gold-bundle.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Resident-Evil-7-Gold-Edition-Village-Gold-Edition-3062571.html",
+   "coverType": "art"
+  },
+  {
+   "id": "re-requiem",
+   "title": "Resident Evil Requiem",
+   "platform": "Switch 2",
+   "publisher": "Capcom",
+   "firstParty": false,
+   "cover": "images/covers/re-requiem.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Resident-Evil-Requiem-2915501.html",
+   "coverType": "art"
+  },
+  {
+   "id": "kotor",
+   "title": "STAR WARS: Knights of the Old Republic",
+   "platform": "Switch",
+   "publisher": "Aspyr",
+   "firstParty": false,
+   "cover": "images/covers/kotor.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/STAR-WARS-Knights-of-the-Old-Republic--2045655.html",
+   "coverType": "art"
+  },
+  {
+   "id": "kotor-2",
+   "title": "STAR WARS: Knights of the Old Republic II: The Sith Lords",
+   "platform": "Switch",
+   "publisher": "Aspyr",
+   "firstParty": false,
+   "cover": "images/covers/kotor-2.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/STAR-WARS-Knights-of-the-Old-Republic-II-The-Sith-Lords-2219606.html",
+   "coverType": "art"
+  },
+  {
+   "id": "kotor-bundle",
+   "title": "STAR WARS Knights of the Old Republic Bundle",
+   "platform": "Switch",
+   "publisher": "Aspyr",
+   "firstParty": false,
+   "notes": "Bundle",
+   "cover": "images/covers/kotor-bundle.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/STAR-WARS-Knights-of-the-Old-Republic-Bundle-2220161.html",
+   "coverType": "art"
+  },
+  {
+   "id": "turok-origins",
+   "title": "Turok: Origins",
+   "platform": "Switch 2",
+   "publisher": "Saber Interactive",
+   "firstParty": false,
+   "notes": "Out 2027",
+   "cover": "images/covers/turok-origins.webp",
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Turok-Origins-3017602.html",
    "coverType": "art"
   }
  ]
 };
   /* ======================== END OF COLLECTION DATA ======================== */
+
+  (function () {
+    function checkSiteVersion() {
+      if (window.__versionCheckBusy) return;
+      window.__versionCheckBusy = true;
+      fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) {
+          var v = data && data.version ? String(data.version) : '';
+          if (!v || v === SITE_VERSION) return;
+          var key = 'site-reload-' + v;
+          try { if (sessionStorage.getItem(key)) return; } catch (e) {}
+          var params = new URLSearchParams(location.search);
+          if (params.get('v') === v) return;
+          try { sessionStorage.setItem(key, '1'); } catch (e) {}
+          params.set('v', v);
+          var q = params.toString();
+          location.replace(location.pathname + (q ? '?' + q : '') + location.hash);
+        })
+        .catch(function () {})
+        .then(function () { window.__versionCheckBusy = false; });
+    }
+    checkSiteVersion();
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') checkSiteVersion();
+    });
+    window.addEventListener('pageshow', checkSiteVersion);
+
+    function showCopied(el) {
+      if (!el) return;
+      el.textContent = 'Link copied';
+      setTimeout(function () { el.textContent = ''; }, 2000);
+    }
+    function copyPageUrl(status) {
+      var ok = function () { showCopied(status); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(PAGE_URL).then(ok).catch(function () {
+          try {
+            var t = document.createElement('textarea');
+            t.value = PAGE_URL; t.setAttribute('readonly', '');
+            t.style.position = 'fixed'; t.style.left = '-9999px';
+            document.body.appendChild(t); t.select();
+            document.execCommand('copy'); document.body.removeChild(t);
+            ok();
+          } catch (e) {}
+        });
+      } else {
+        try {
+          var t = document.createElement('textarea');
+          t.value = PAGE_URL; t.setAttribute('readonly', '');
+          t.style.position = 'fixed'; t.style.left = '-9999px';
+          document.body.appendChild(t); t.select();
+          document.execCommand('copy'); document.body.removeChild(t);
+          ok();
+        } catch (e) {}
+      }
+    }
+    document.querySelectorAll('[data-share]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var status = btn.closest('.share-bar') && btn.closest('.share-bar').querySelector('[data-share-status]');
+        if (navigator.share) {
+          navigator.share({ title: document.title, url: PAGE_URL }).catch(function (err) {
+            if (err && err.name === 'AbortError') return;
+            copyPageUrl(status);
+          });
+        } else {
+          copyPageUrl(status);
+        }
+      });
+    });
+  })();
 
   (function () {
     var all = COLLECTION.games;
@@ -1096,6 +1345,7 @@
       if (g.switch2Upgrade === 'edition') b += '<span class="badge b-ed">Switch 2 Edition available</span>';
       if (g.switch2Upgrade === 'free') b += '<span class="badge b-free">Free Switch 2 update</span>';
       if (g.releaseDate) b += '<span class="badge b-date">Out ' + longDate(g.releaseDate) + '</span>';
+      if (g.notes) b += '<span class="badge b-date">' + esc(g.notes) + '</span>';
       var tick = '';
       if (g.completed !== undefined && !g.releaseDate) {
         tick = '<div class="done-btn ' + (g.completed ? 'yes' : 'no') + '"><span class="tick ' + (g.completed ? 'yes' : 'no') + '">' + (g.completed ? TICK : CROSS) + '</span>' + (g.completed ? 'Completed' : 'Not completed') + '</div>';
@@ -1148,7 +1398,13 @@
       var html;
       if (!list.length) html = '<p class="empty"><img src="' + emptyImg + '" alt="" width="240" height="240">' + emptyText + '</p>';
       else if (!shown.length) html = '<p class="empty">No matches here.</p>';
-      else html = '<div class="grid">' + shown.map(card).join('') + '</div>';
+      else {
+        shown.sort(function (a, b) {
+          if (!!a.firstParty !== !!b.firstParty) return a.firstParty ? -1 : 1;
+          return byTitle(a, b);
+        });
+        html = '<div class="grid">' + shown.map(card).join('') + '</div>';
+      }
       document.querySelector('[data-list="' + key + '"]').innerHTML = html;
       document.querySelector('[data-count="' + key + '"]').textContent = list.length;
       var ownedOnly = els.fmt.value || els.done.value;
