@@ -110,7 +110,7 @@
     .b-ed { background: #e3ecff; color: var(--blue-dark); }
     .b-free { background: #fff1bf; color: #5c4600; }
     .b-date { background: var(--blue); color: #fff; }
-    .done-btn { display: flex; align-items: center; gap: 0.45rem; width: 100%; margin-top: 0.45rem; padding: 0.35rem 0.5rem; border: 2px solid #d9cfcf; border-radius: 10px; background: #fff; color: var(--muted); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .done-btn { display: flex; align-items: center; gap: 0.45rem; width: 100%; margin-top: 0.45rem; padding: 0.35rem 0.5rem; border: 2px solid #d9cfcf; border-radius: 10px; background: #fff; color: var(--muted); font: inherit; font-size: 0.85rem; font-weight: 700; }
     .done-btn.yes { border-color: var(--green); background: #e8f6ee; color: var(--green); }
     .tick { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
     .tick.no { border: 2px solid #b9aeae; background: #fff; }
@@ -1083,9 +1083,6 @@
 
   (function () {
     var all = COLLECTION.games;
-    var SAVE_KEY = 'nintendo-completed-v1', saved = {};
-    try { saved = JSON.parse(localStorage.getItem(SAVE_KEY) || '{}') || {}; } catch (e) { saved = {}; }
-    all.forEach(function (g) { if (saved.hasOwnProperty(g.id)) g.completed = !!saved[g.id]; });
     var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
     document.getElementById('friend-code').textContent = FRIEND_CODE;
@@ -1106,7 +1103,7 @@
       if (g.releaseDate) b += '<span class="badge b-date">Out ' + longDate(g.releaseDate) + '</span>';
       var tick = '';
       if (g.completed !== undefined && !g.releaseDate) {
-        tick = '<button type="button" class="done-btn ' + (g.completed ? 'yes' : 'no') + '" data-id="' + esc(g.id) + '" aria-pressed="' + (g.completed ? 'true' : 'false') + '"><span class="tick ' + (g.completed ? 'yes' : 'no') + '">' + (g.completed ? TICK : '') + '</span>' + (g.completed ? 'Completed' : 'Completed?') + '</button>';
+        tick = '<div class="done-btn ' + (g.completed ? 'yes' : 'no') + '"><span class="tick ' + (g.completed ? 'yes' : 'no') + '">' + (g.completed ? TICK : '') + '</span>' + (g.completed ? 'Completed' : 'Not completed yet') + '</div>';
       }
       var img = '<img src="' + esc(g.cover) + '" alt="' + esc(g.title) + ' cover" width="300" height="480" loading="lazy" decoding="async">';
       var cover = g.url ? '<a class="cover" href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" title="Open the official page for ' + esc(g.title) + '">' + img + '</a>'
@@ -1181,15 +1178,6 @@
 
     ['input', 'change'].forEach(function (ev) {
       Object.keys(els).forEach(function (k) { els[k].addEventListener(ev, render); });
-    });
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest ? e.target.closest('button.done-btn') : null;
-      if (!t) return;
-      e.preventDefault();
-      var id = t.getAttribute('data-id');
-      all.forEach(function (g) { if (g.id === id) { g.completed = !g.completed; saved[id] = g.completed; } });
-      try { localStorage.setItem(SAVE_KEY, JSON.stringify(saved)); } catch (err) {}
-      stats(); render();
     });
     stats();
     render();
