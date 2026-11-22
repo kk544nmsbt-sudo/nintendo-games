@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rich's Nintendo Switch and Switch 2 game collection: physical, digital, pre-orders and wish list.">
+  <title>Rich's Nintendo Collection</title>
+  <style>
+    :root {
+      --red: #e60012;
+      --red-dark: #b3000e;
+      --blue: #0050c8;
+      --blue-dark: #003a91;
+      --yellow: #ffcc00;
+      --ink: #1d1d1f;
+      --muted: #5b5b66;
+      --bg: #fff6f6;
+      --card: #ffffff;
+      --line: #f1d4d6;
+      --green: #12a150;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --serif: Georgia, "Palatino Linotype", Palatino, "Times New Roman", serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 12px 12px, rgba(230, 0, 18, 0.06) 3px, transparent 4px) 0 0 / 28px 28px, var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      font-size: 1.05rem;
+      overflow-x: hidden;
+    }
+    .page { max-width: 64rem; margin: 0 auto; padding: 1rem 0.9rem 2.4rem; }
+    h1, h2, h3 { font-family: var(--serif); line-height: 1.15; }
+
+    /* Header */
+    header.hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, var(--red) 0%, var(--red-dark) 100%);
+      color: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.3rem 1.1rem 0; margin-bottom: 1rem;
+      border-bottom: 6px solid var(--blue);
+    }
+    header.hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.7rem); margin: 0 0 0.35rem; }
+    header.hero p { margin: 0; opacity: 0.95; max-width: 34rem; }
+    .stats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 0; padding: 0; list-style: none; }
+    .stats li { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px; padding: 0.15rem 0.7rem; font-size: 0.9rem; font-weight: 600; }
+    .stats li.done { background: var(--yellow); color: #3a2a00; border-color: var(--yellow); }
+    .cast { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.2rem; margin-top: 0.8rem; height: 5.4rem; }
+    .cast img { height: 100%; width: auto; max-width: 15%; object-fit: contain; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
+    .cast img.small { height: 78%; }
+
+    /* Panels */
+    section.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem; margin-bottom: 1rem; }
+    .panel-head { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.8rem; }
+    .panel-head img { width: 2.6rem; height: 2.6rem; object-fit: contain; flex: none; }
+    .panel-head h2 { margin: 0; font-size: 1.45rem; color: var(--red-dark); }
+    .panel-head .count { margin-left: auto; background: var(--red); color: #fff; font-weight: 700; border-radius: 999px; padding: 0.05rem 0.65rem; font-size: 0.9rem; white-space: nowrap; }
+    h3.sub { font-size: 1.1rem; margin: 1.1rem 0 0.6rem; padding-left: 0.6rem; border-left: 5px solid var(--blue); color: var(--blue-dark); }
+    h3.sub:first-of-type { margin-top: 0.2rem; }
+    h3.sub.third { border-left-color: var(--yellow); color: #6b5200; }
+
+    /* Friend box */
+    .friend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
+    .avatar { width: 5.2rem; height: 5.2rem; border-radius: 50%; background: var(--red); border: 4px solid #fff; box-shadow: 0 0 0 3px var(--red); overflow: hidden; flex: none; display: flex; align-items: flex-end; justify-content: center; }
+    .avatar img { width: 82%; height: auto; margin-bottom: -6%; }
+    .friend-info { flex: 1 1 12rem; min-width: 0; }
+    .gamer { font-family: var(--serif); font-size: 1.35rem; font-weight: 700; margin: 0; }
+    .fc-label { margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .fc { font-size: clamp(1.4rem, 7.6vw, 2.4rem); font-weight: 800; letter-spacing: 0.03em; color: var(--red-dark); margin: 0.6rem 0 0.4rem; font-variant-numeric: tabular-nums; white-space: nowrap; text-align: center; background: #fff3f3; border: 2px dashed var(--red); border-radius: 12px; padding: 0.35rem 0.4rem; }
+    .friend-qr-row { display: flex; align-items: center; gap: 0.9rem; }
+    .friend-qr-row .hint { margin: 0; }
+    .friend-qr { text-align: center; flex: none; }
+    .friend-qr img { width: 7.5rem; height: 7.5rem; display: block; margin: 0 auto; image-rendering: pixelated; border-radius: 6px; }
+    .friend-qr span { font-size: 0.8rem; color: var(--muted); }
+    .hint { font-size: 0.9rem; color: var(--muted); margin: 0.6rem 0 0; }
+
+    /* Controls */
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .controls label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .controls .search { grid-column: 1 / -1; }
+    .controls input, .controls select { width: 100%; font: inherit; font-size: 1rem; padding: 0.55rem 0.7rem; border: 2px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); }
+    .controls input:focus, .controls select:focus { outline: none; border-color: var(--blue); }
+    .showing { margin: 0.7rem 0 0; font-size: 0.95rem; color: var(--muted); }
+    .showing strong { color: var(--ink); }
+
+    /* Consoles */
+    .consoles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .console { text-align: center; background: #fafafa; border-radius: 12px; padding: 0.6rem; border: 1px solid #eee; }
+    .console img { width: 100%; height: 6.5rem; object-fit: contain; }
+    .console p { margin: 0.35rem 0 0; font-weight: 700; font-size: 0.95rem; }
+    .console small { color: var(--muted); font-weight: 400; }
+
+    /* Game grid */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    @media (min-width: 600px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 860px) { .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } .page { padding-inline: 1.3rem; } }
+    .game { position: relative; display: flex; flex-direction: column; min-width: 0; }
+    .game a.cover { display: block; position: relative; border-radius: 10px; overflow: hidden; background: #eee; aspect-ratio: 5 / 8; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); transition: transform 0.15s; }
+    .game a.cover:hover, .game a.cover:focus-visible { transform: translateY(-3px); }
+    .game a.cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .game h4 { font-size: 0.92rem; line-height: 1.25; margin: 0.45rem 0 0.15rem; font-weight: 700; overflow-wrap: anywhere; }
+    .game .pub { font-size: 0.78rem; color: var(--muted); margin: 0 0 0.3rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: auto; }
+    .badge { font-size: 0.72rem; font-weight: 700; border-radius: 999px; padding: 0.08rem 0.5rem; white-space: nowrap; }
+    .b-s1 { background: var(--red); color: #fff; }
+    .b-s2 { background: #222; color: #fff; }
+    .b-ed { background: #e3ecff; color: var(--blue-dark); }
+    .b-free { background: #fff1bf; color: #5c4600; }
+    .b-date { background: var(--blue); color: #fff; }
+    .tick { position: absolute; top: 6px; right: 6px; width: 1.9rem; height: 1.9rem; border-radius: 7px; display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none; }
+    .tick.no { border: 2.5px solid #fff; background: rgba(0, 0, 0, 0.28); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
+    .tick.yes { background: var(--green); border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); }
+    .tick.yes svg { width: 1.2rem; height: 1.2rem; }
+    .empty { text-align: center; color: var(--muted); padding: 1.2rem 0.5rem; margin: 0; }
+    .empty img { display: block; width: 4.5rem; height: auto; margin: 0 auto 0.4rem; }
+    .key { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; font-size: 0.85rem; color: var(--muted); margin: 0.8rem 0 0; }
+    .key span { display: inline-flex; align-items: center; gap: 0.3rem; }
+    .mini { display: inline-block; width: 1rem; height: 1rem; border-radius: 4px; }
+    .mini.yes { background: var(--green); }
+    .mini.no { border: 2px solid #999; }
+    [hidden] { display: none !important; }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 1rem 0 0; }
+    footer p { margin: 0.3rem 0; }
+    .share img { display: block; margin: 0.6rem auto 0; }
+    .visits { margin: 0.8rem 0 0; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--ink); font-size: 1.1rem; }
+    .visits img { height: 34px; width: auto; }
+    .small-print { font-size: 0.78rem; margin-top: 0.8rem; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <h1>Rich's Nintendo Collection</h1>
+      <p>Every game on my shelf and on my Switch, plus what's on the way and what I'm after next.</p>
+      <ul class="stats" id="stats"></ul>
+      <div class="cast" aria-hidden="true">
+        <img src="images/characters/mario.webp" alt="" width="112" height="240">
+        <img src="images/characters/link.webp" alt="" width="98" height="240" class="small">
+        <img src="images/characters/kirby.webp" alt="" width="240" height="222" class="small">
+        <img src="images/characters/dk.webp" alt="" width="240" height="220">
+        <img src="images/characters/pikachu.webp" alt="" width="240" height="240" class="small">
+        <img src="images/characters/yoshi.webp" alt="" width="145" height="240">
+        <img src="images/characters/luigi.webp" alt="" width="96" height="240">
+      </div>
+    </header>
+
+    <section class="panel" id="friend">
+      <div class="panel-head"><img src="images/characters/peach.webp" alt="" width="133" height="240"><h2>Add me as a friend</h2></div>
+      <div class="friend">
+        <div class="avatar"><img src="images/characters/captain-toad.webp" alt="Captain Toad avatar" width="127" height="240"></div>
+        <div class="friend-info">
+          <p class="gamer" id="gamer-name"></p>
+          <p class="fc-label">Friend code</p>
+        </div>
+      </div>
+      <p class="fc" id="friend-code"></p>
+      <div class="friend-qr-row">
+        <div class="friend-qr"><img src="images/friend-qr.png" alt="QR code showing my friend code" width="160" height="160"><span>Scan to see my code</span></div>
+        <p class="hint">On your Switch or Switch 2, open your user page, choose Add Friend, then Search with Friend Code, and type in the code.</p>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Search and filters">
+      <div class="controls">
+        <div class="search"><label for="q">Search games</label><input id="q" type="search" placeholder="Type a game name, e.g. Zelda" autocomplete="off"></div>
+        <div><label for="f-console">Console</label>
+          <select id="f-console"><option value="">All consoles</option><option value="Switch 2">Switch 2</option><option value="Switch">Switch</option></select></div>
+        <div><label for="f-format">Format</label>
+          <select id="f-format"><option value="">All formats</option><option value="physical">Physical</option><option value="digital">Digital</option></select></div>
+        <div><label for="f-done">Completed</label>
+          <select id="f-done"><option value="">All games</option><option value="yes">Completed</option><option value="no">Not completed</option></select></div>
+        <div><label for="f-maker">Publisher</label>
+          <select id="f-maker"><option value="">All publishers</option><option value="first">Nintendo</option><option value="third">Other publishers</option></select></div>
+      </div>
+      <p class="showing" id="showing"></p>
+      <div class="key">
+        <span><i class="mini yes"></i> Completed</span>
+        <span><i class="mini no"></i> Not finished yet</span>
+        <span>Tap a cover for its official Nintendo page</span>
+      </div>
+    </section>
+
+    <section class="panel" id="consoles">
+      <div class="panel-head"><img src="images/characters/bowser.webp" alt="" width="240" height="240"><h2>My consoles</h2></div>
+      <div class="consoles">
+        <div class="console"><img src="images/consoles/switch-2.webp" alt="Nintendo Switch 2 with Joy-Con 2 and dock" width="480" height="205" loading="lazy"><p>Nintendo Switch 2</p></div>
+        <div class="console"><img src="images/consoles/switch-lite-yellow.webp" alt="Yellow Nintendo Switch Lite" width="480" height="210" loading="lazy"><p>Nintendo Switch Lite <small>(Yellow)</small></p></div>
+      </div>
+      <p class="hint">Switch 2 games won't play on the Switch Lite. Everything else plays on both.</p>
+    </section>
+
+    <section class="panel" id="physical">
+      <div class="panel-head"><img src="images/characters/mario.webp" alt="" width="112" height="240"><h2>Physical games</h2><span class="count" data-count="physical"></span></div>
+      <div data-list="physical"></div>
+    </section>
+
+    <section class="panel" id="digital">
+      <div class="panel-head"><img src="images/characters/link.webp" alt="" width="98" height="240"><h2>Digital games</h2><span class="count" data-count="digital"></span></div>
+      <div data-list="digital"></div>
+    </section>
+
+    <section class="panel" id="preorders">
+      <div class="panel-head"><img src="images/characters/kirby.webp" alt="" width="240" height="222"><h2>Pre-ordered</h2><span class="count" data-count="preorders"></span></div>
+      <div data-list="preorders"></div>
+    </section>
+
+    <section class="panel" id="wishlist">
+      <div class="panel-head"><img src="images/characters/yoshi.webp" alt="" width="145" height="240"><h2>Wish list</h2><span class="count" data-count="wishlist"></span></div>
+      <div data-list="wishlist"></div>
+    </section>
+
+    <footer>
+      <p>Last updated 22 November 2026</p>
+      <div class="share"><img src="qr.png" alt="QR code for this page" width="110" height="110" loading="lazy"><p>Scan to share this page</p></div>
+      <p class="visits"><span>Visitors:</span><img src="https://hits.sh/kk544nmsbt-sudo.github.io/nintendo-games.svg?label=Visits&amp;color=e60012&amp;labelColor=333333" alt="Visit count" height="34" loading="lazy" referrerpolicy="no-referrer"></p>
+      <p class="small-print">A personal fan page, not affiliated with Nintendo. Game covers and characters are © Nintendo and their publishers.</p>
+    </footer>
+  </div>
+
+  <script>
+  /* ================= COLLECTION DATA (single source of truth) =================
+     To update the page, edit only this block:
+     - FRIEND_CODE / GAMER_NAME: shown in the "Add me as a friend" box.
+       After changing FRIEND_CODE, regenerate images/friend-qr.png with: python tools/make_qr.py (kept outside the site folder).
+     - games: each game has a "completed" true/false, "format" (physical/digital),
+       "platform" (Switch / Switch 2), "firstParty", "switch2Upgrade"
+       ("edition" = paid Switch 2 Edition available, "free" = free Switch 2 update).
+     - preorders: move a game into "games" (format physical/digital) once it arrives.
+     - wishlist: add objects like
+       { "title": "Game name", "platform": "Switch 2", "cover": "images/covers/x.webp", "url": "https://..." }
+  ============================================================================ */
+  var FRIEND_CODE = "SW-1144-5258-9613";
+  var GAMER_NAME = "Uglybob";
+  var COLLECTION = {
+ "games": [
+  {
+   "id": "splatoon-raiders",
+   "title": "Splatoon Raiders",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Splatoon-Raiders-2846969.html",
+   "cover": "images/covers/splatoon-raiders.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "star-fox",
+   "title": "Star Fox",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Star-Fox-3094728.html",
+   "cover": "images/covers/star-fox.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "mario-party-jamboree-s2",
+   "title": "Super Mario Party Jamboree – Nintendo Switch 2 Edition + Jamboree TV",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Super-Mario-Party-Jamboree-Nintendo-Switch-2-Edition-Jamboree-TV-2785806.html",
+   "cover": "images/covers/mario-party-jamboree-s2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "kirby-forgotten-land-s2",
+   "title": "Kirby and the Forgotten Land – Nintendo Switch 2 Edition + Star-Crossed World",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Kirby-and-the-Forgotten-Land-Nintendo-Switch-2-Edition-Star-Crossed-World-2787773.html",
+   "cover": "images/covers/kirby-forgotten-land-s2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "dk-bananza",
+   "title": "Donkey Kong Bananza",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Donkey-Kong-Bananza-2785804.html",
+   "cover": "images/covers/dk-bananza.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "metroid-prime-4-s2",
+   "title": "Metroid Prime 4: Beyond – Nintendo Switch 2 Edition",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Metroid-Prime-4-Beyond-Nintendo-Switch-2-Edition-2790001.html",
+   "cover": "images/covers/metroid-prime-4-s2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "pokemon-pokopia",
+   "title": "Pokémon Pokopia",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo / The Pokémon Company",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Pokemon-Pokopia-2915161.html",
+   "cover": "images/covers/pokemon-pokopia.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "zelda-ocarina",
+   "title": "The Legend of Zelda: Ocarina of Time",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/The-Legend-of-Zelda-Ocarina-of-Time-3115664.html",
+   "cover": "images/covers/zelda-ocarina.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "cyberpunk-2077",
+   "title": "Cyberpunk 2077: Ultimate Edition",
+   "platform": "Switch 2",
+   "format": "physical",
+   "firstParty": false,
+   "publisher": "CD PROJEKT RED",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Cyberpunk-2077-Ultimate-Edition-2791954.html",
+   "cover": "images/covers/cyberpunk-2077.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "pikmin-3-deluxe",
+   "title": "Pikmin 3 Deluxe",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Pikmin-3-Deluxe-1821101.html",
+   "cover": "images/covers/pikmin-3-deluxe.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "pikmin-4",
+   "title": "Pikmin 4",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "edition",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Pikmin-4-2267217.html",
+   "cover": "images/covers/pikmin-4.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-galaxy-1-2",
+   "title": "Super Mario Galaxy + Super Mario Galaxy 2",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Galaxy-Super-Mario-Galaxy-2-2915270.html",
+   "cover": "images/covers/mario-galaxy-1-2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "nsmbu-deluxe",
+   "title": "New Super Mario Bros. U Deluxe",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/New-Super-Mario-Bros-U-Deluxe-1438640.html",
+   "cover": "images/covers/nsmbu-deluxe.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "luigis-mansion-3",
+   "title": "Luigi's Mansion 3",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Luigi-s-Mansion-3-1437312.html",
+   "cover": "images/covers/luigis-mansion-3.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-kart-8-deluxe",
+   "title": "Mario Kart 8 Deluxe",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Kart-8-Deluxe-1173281.html",
+   "cover": "images/covers/mario-kart-8-deluxe.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "zelda-totk",
+   "title": "The Legend of Zelda: Tears of the Kingdom",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "edition",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
+   "cover": "images/covers/zelda-totk.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "smash-ultimate",
+   "title": "Super Smash Bros. Ultimate",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Smash-Bros-Ultimate-1395713.html",
+   "cover": "images/covers/smash-ultimate.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-wonder",
+   "title": "Super Mario Bros. Wonder",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "edition",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Bros-Wonder-2404150.html",
+   "cover": "images/covers/mario-wonder.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "captain-toad",
+   "title": "Captain Toad: Treasure Tracker",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Captain-Toad-Treasure-Tracker-1348071.html",
+   "cover": "images/covers/captain-toad.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "zelda-echoes",
+   "title": "The Legend of Zelda: Echoes of Wisdom",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Echoes-of-Wisdom-2590490.html",
+   "cover": "images/covers/zelda-echoes.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "dkc-tropical-freeze",
+   "title": "Donkey Kong Country: Tropical Freeze",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Donkey-Kong-Country-Tropical-Freeze-1325706.html",
+   "cover": "images/covers/dkc-tropical-freeze.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "metroid-dread",
+   "title": "Metroid Dread",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metroid-Dread-1987653.html",
+   "cover": "images/covers/metroid-dread.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "metroid-prime-remastered",
+   "title": "Metroid Prime Remastered",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metroid-Prime-Remastered-2341668.html",
+   "cover": "images/covers/metroid-prime-remastered.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "witcher-3",
+   "title": "The Witcher 3: Wild Hunt – Complete Edition",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": false,
+   "publisher": "CD PROJEKT RED",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Witcher-3-Wild-Hunt-Complete-Edition-1575086.html",
+   "cover": "images/covers/witcher-3.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-maker-2",
+   "title": "Super Mario Maker 2",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Maker-2-1514009.html",
+   "cover": "images/covers/mario-maker-2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-odyssey",
+   "title": "Super Mario Odyssey",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Odyssey-1173332.html",
+   "cover": "images/covers/mario-odyssey.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-3d-world",
+   "title": "Super Mario 3D World + Bowser's Fury",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "free",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-3D-World-Bowser-s-Fury-1832228.html",
+   "cover": "images/covers/mario-3d-world.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "paper-mario-ttyd",
+   "title": "Paper Mario: The Thousand-Year Door",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Paper-Mario-The-Thousand-Year-Door-2445545.html",
+   "cover": "images/covers/paper-mario-ttyd.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "prince-of-persia",
+   "title": "Prince of Persia: The Lost Crown",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": false,
+   "publisher": "Ubisoft",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Prince-of-Persia-The-Lost-Crown-2398221.html",
+   "cover": "images/covers/prince-of-persia.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "zelda-botw",
+   "title": "The Legend of Zelda: Breath of the Wild",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": "edition",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Breath-of-the-Wild-1173609.html",
+   "cover": "images/covers/zelda-botw.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "rabbids-sparks",
+   "title": "Mario + Rabbids Sparks of Hope",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": false,
+   "publisher": "Ubisoft",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Rabbids-Sparks-of-Hope-1986931.html",
+   "cover": "images/covers/rabbids-sparks.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "rabbids-kingdom",
+   "title": "Mario + Rabbids Kingdom Battle",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": false,
+   "publisher": "Ubisoft",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Rabbids-Kingdom-Battle-1233954.html",
+   "cover": "images/covers/rabbids-kingdom.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-vs-dk",
+   "title": "Mario vs. Donkey Kong",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-vs-Donkey-Kong-2445644.html",
+   "cover": "images/covers/mario-vs-dk.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "mario-golf",
+   "title": "Mario Golf: Super Rush",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Golf-Super-Rush-1923515.html",
+   "cover": "images/covers/mario-golf.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "switch-sports",
+   "title": "Nintendo Switch Sports",
+   "platform": "Switch",
+   "format": "physical",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Nintendo-Switch-Sports-2168292.html",
+   "cover": "images/covers/switch-sports.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "ori-wotw",
+   "title": "Ori and the Will of the Wisps",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Xbox Game Studios",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Ori-and-the-Will-of-the-Wisps-1842518.html",
+   "cover": "images/covers/ori-wotw.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "ori-blind-forest",
+   "title": "Ori and the Blind Forest: Definitive Edition",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Xbox Game Studios",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Ori-and-the-Blind-Forest-Definitive-Edition-1621526.html",
+   "cover": "images/covers/ori-blind-forest.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "hollow-knight-s2",
+   "title": "Hollow Knight – Nintendo Switch 2 Edition",
+   "platform": "Switch 2",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Team Cherry",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Hollow-Knight-Nintendo-Switch-2-Edition-3016593.html",
+   "cover": "images/covers/hollow-knight-s2.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "silksong-s2",
+   "title": "Hollow Knight: Silksong – Nintendo Switch 2 Edition",
+   "platform": "Switch 2",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Team Cherry",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Hollow-Knight-Silksong-Nintendo-Switch-2-Edition-2908803.html",
+   "cover": "images/covers/silksong-s2.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "larry-wet-dreams",
+   "title": "Leisure Suit Larry – Wet Dreams Don't Dry",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Assemble Entertainment",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/us/store/products/leisure-suit-larry-wet-dreams-saga-switch/",
+   "cover": "images/covers/larry-wet-dreams.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "larry-dry-twice",
+   "title": "Leisure Suit Larry – Wet Dreams Dry Twice",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Assemble Entertainment",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/us/store/products/leisure-suit-larry-wet-dreams-saga-switch/",
+   "cover": "images/covers/larry-dry-twice.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "skyrim-ae",
+   "title": "The Elder Scrolls V: Skyrim Anniversary Edition",
+   "platform": "Switch 2",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Bethesda",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/The-Elder-Scrolls-V-Skyrim-Anniversary-Edition-2983914.html",
+   "cover": "images/covers/skyrim-ae.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "planet-of-lana",
+   "title": "Planet of Lana",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Thunderful",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Planet-of-Lana-2479514.html",
+   "cover": "images/covers/planet-of-lana.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "tmnt-splintered-fate-s2",
+   "title": "Teenage Mutant Ninja Turtles: Splintered Fate – Nintendo Switch 2 Edition",
+   "platform": "Switch 2",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Super Evil Megacorp",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Teenage-Mutant-Ninja-Turtles-Splintered-Fate-Nintendo-Switch-2-Edition-2990308.html",
+   "cover": "images/covers/tmnt-splintered-fate-s2.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "hades",
+   "title": "Hades",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Supergiant Games",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Hades-1821819.html",
+   "cover": "images/covers/hades.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "celeste",
+   "title": "Celeste",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Maddy Makes Games",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Celeste-1207064.html",
+   "cover": "images/covers/celeste.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "mario-kart-world",
+   "title": "Mario Kart World",
+   "platform": "Switch 2",
+   "format": "digital",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Mario-Kart-World-2790000.html",
+   "cover": "images/covers/mario-kart-world.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "deltarune",
+   "title": "DELTARUNE",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Toby Fox",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/DELTARUNE-2834684.html",
+   "cover": "images/covers/deltarune.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "nwc-nes",
+   "title": "Nintendo World Championships: NES Edition",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Nintendo-World-Championships-NES-Edition-2569575.html",
+   "cover": "images/covers/nwc-nes.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "doom",
+   "title": "DOOM",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Bethesda",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/DOOM-1276066.html",
+   "cover": "images/covers/doom.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "lego-city",
+   "title": "LEGO City Undercover",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Warner Bros. Games",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/LEGO-CITY-Undercover-1177194.html",
+   "cover": "images/covers/lego-city.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "lego-marvel",
+   "title": "LEGO Marvel Super Heroes",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Warner Bros. Games",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/LEGO-Marvel-Super-Heroes-2054297.html",
+   "cover": "images/covers/lego-marvel.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "lego-star-wars",
+   "title": "LEGO Star Wars: The Skywalker Saga Galactic Edition",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Warner Bros. Games",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/LEGO-Star-Wars-The-Skywalker-Saga-2157160.html",
+   "cover": "images/covers/lego-star-wars.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "wolfenstein-2",
+   "title": "Wolfenstein II: The New Colossus",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Bethesda",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Wolfenstein-II-The-New-Colossus-1276093.html",
+   "cover": "images/covers/wolfenstein-2.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "limbo",
+   "title": "LIMBO",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Playdead",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/LIMBO-1395414.html",
+   "cover": "images/covers/limbo.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "inside",
+   "title": "INSIDE",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Playdead",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/INSIDE-1395727.html",
+   "cover": "images/covers/inside.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "metro-2033",
+   "title": "Metro 2033 Redux",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Deep Silver",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metro-2033-Redux-1708503.html",
+   "cover": "images/covers/metro-2033.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "metro-last-light",
+   "title": "Metro: Last Light Redux",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Deep Silver",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metro-Last-Light-Redux-1708392.html",
+   "cover": "images/covers/metro-last-light.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "tes-blades",
+   "title": "The Elder Scrolls: Blades",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Bethesda",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/The-Elder-Scrolls-Blades-1576249.html",
+   "cover": "images/covers/tes-blades.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "disney-speedstorm",
+   "title": "Disney Speedstorm",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Gameloft",
+   "switch2Upgrade": "edition",
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Disney-Speedstorm-2171068.html",
+   "cover": "images/covers/disney-speedstorm.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "mario-kart-live",
+   "title": "Mario Kart Live: Home Circuit",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Mario-Kart-Live-Home-Circuit-1832413.html",
+   "cover": "images/covers/mario-kart-live.webp",
+   "coverType": "art"
+  },
+  {
+   "id": "sf30",
+   "title": "Street Fighter 30th Anniversary Collection",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Capcom",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Street-Fighter-30th-Anniversary-Collection-1370376.html",
+   "cover": "images/covers/sf30.webp",
+   "coverType": "box"
+  },
+  {
+   "id": "overwatch-2",
+   "title": "Overwatch",
+   "platform": "Switch",
+   "format": "digital",
+   "firstParty": false,
+   "publisher": "Blizzard Entertainment",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-download-software/Overwatch--2229263.html",
+   "cover": "images/covers/overwatch-2.webp",
+   "coverType": "art"
+  }
+ ],
+ "preorders": [
+  {
+   "id": "metroid-ravenous",
+   "title": "Metroid Ravenous",
+   "platform": "Switch 2",
+   "format": "pre-order",
+   "firstParty": true,
+   "publisher": "Nintendo",
+   "releaseDate": "2027-01-28",
+   "switch2Upgrade": null,
+   "completed": false,
+   "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Metroid-Ravenous-3188729.html",
+   "cover": "images/covers/metroid-ravenous.webp",
+   "coverType": "art"
+  }
+ ],
+ "wishlist": []
+};
+  /* ======================== END OF COLLECTION DATA ======================== */
+
+  (function () {
+    var all = COLLECTION.games;
+    var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+    document.getElementById('friend-code').textContent = FRIEND_CODE;
+    document.getElementById('gamer-name').textContent = GAMER_NAME;
+
+    function sortKey(t) { return t.replace(/^The\s+/i, '').toLowerCase(); }
+    function byTitle(a, b) { return sortKey(a.title).localeCompare(sortKey(b.title), 'en-GB'); }
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function longDate(iso) {
+      var p = iso.split('-');
+      return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    }
+
+    function card(g) {
+      var b = '<span class="badge ' + (g.platform === 'Switch 2' ? 'b-s2' : 'b-s1') + '">' + esc(g.platform) + '</span>';
+      if (g.switch2Upgrade === 'edition') b += '<span class="badge b-ed">Switch 2 Edition available</span>';
+      if (g.switch2Upgrade === 'free') b += '<span class="badge b-free">Free Switch 2 update</span>';
+      if (g.releaseDate) b += '<span class="badge b-date">Out ' + longDate(g.releaseDate) + '</span>';
+      var tick = '';
+      if (g.completed !== undefined && !g.releaseDate) {
+        tick = g.completed ? '<span class="tick yes" title="Completed" role="img" aria-label="Completed">' + TICK + '</span>'
+                           : '<span class="tick no" title="Not completed yet" role="img" aria-label="Not completed yet"></span>';
+      }
+      var img = '<img src="' + esc(g.cover) + '" alt="' + esc(g.title) + ' cover" width="300" height="480" loading="lazy" decoding="async">';
+      var cover = g.url ? '<a class="cover" href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" title="Open the official page for ' + esc(g.title) + '">' + img + '</a>'
+                        : '<span class="cover">' + img + '</span>';
+      return '<div class="game">' + tick + cover + '<h4>' + esc(g.title) + '</h4>' +
+        (g.publisher ? '<p class="pub">' + esc(g.publisher) + '</p>' : '') + '<div class="badges">' + b + '</div></div>';
+    }
+
+    var els = {
+      q: document.getElementById('q'), con: document.getElementById('f-console'), fmt: document.getElementById('f-format'),
+      done: document.getElementById('f-done'), maker: document.getElementById('f-maker')
+    };
+
+    function matches(g) {
+      var q = els.q.value.trim().toLowerCase();
+      if (q && g.title.toLowerCase().indexOf(q) === -1) return false;
+      if (els.con.value && g.platform !== els.con.value) return false;
+      if (els.maker.value === 'first' && !g.firstParty) return false;
+      if (els.maker.value === 'third' && g.firstParty) return false;
+      return true;
+    }
+    function ownedMatches(g) {
+      if (!matches(g)) return false;
+      if (els.fmt.value && g.format !== els.fmt.value) return false;
+      if (els.done.value === 'yes' && !g.completed) return false;
+      if (els.done.value === 'no' && g.completed) return false;
+      return true;
+    }
+
+    function renderOwned(format) {
+      var list = all.filter(function (g) { return g.format === format; });
+      var shown = list.filter(ownedMatches);
+      var first = shown.filter(function (g) { return g.firstParty; }).sort(byTitle);
+      var third = shown.filter(function (g) { return !g.firstParty; }).sort(byTitle);
+      var html = '';
+      if (first.length) html += '<h3 class="sub">Nintendo games (' + first.length + ')</h3><div class="grid">' + first.map(card).join('') + '</div>';
+      if (third.length) html += '<h3 class="sub third">Other publishers (' + third.length + ')</h3><div class="grid">' + third.map(card).join('') + '</div>';
+      document.querySelector('[data-list="' + format + '"]').innerHTML = html;
+      document.querySelector('[data-count="' + format + '"]').textContent = shown.length === list.length ? list.length : shown.length + ' of ' + list.length;
+      document.getElementById(format).hidden = shown.length === 0;
+      return shown.length;
+    }
+
+    function renderSimple(key, emptyText, emptyImg) {
+      var list = COLLECTION[key];
+      var shown = list.filter(matches).sort(byTitle);
+      var html;
+      if (!list.length) html = '<p class="empty"><img src="' + emptyImg + '" alt="" width="240" height="240">' + emptyText + '</p>';
+      else if (!shown.length) html = '<p class="empty">No matches here.</p>';
+      else html = '<div class="grid">' + shown.map(card).join('') + '</div>';
+      document.querySelector('[data-list="' + key + '"]').innerHTML = html;
+      document.querySelector('[data-count="' + key + '"]').textContent = list.length;
+      var ownedOnly = els.fmt.value || els.done.value;
+      document.getElementById(key).hidden = !!ownedOnly && key === 'preorders' || (!!ownedOnly && key === 'wishlist' && list.length > 0);
+    }
+
+    function render() {
+      var n = renderOwned('physical') + renderOwned('digital');
+      renderSimple('preorders', 'No pre-orders at the moment.', 'images/characters/kirby.webp');
+      renderSimple('wishlist', 'Nothing here yet. Watch this space!', 'images/characters/yoshi.webp');
+      document.getElementById('showing').innerHTML = 'Showing <strong>' + n + '</strong> of ' + all.length + ' games';
+    }
+
+    function stats() {
+      var done = all.filter(function (g) { return g.completed; }).length;
+      var phys = all.filter(function (g) { return g.format === 'physical'; }).length;
+      var s2 = all.filter(function (g) { return g.platform === 'Switch 2'; }).length;
+      document.getElementById('stats').innerHTML =
+        '<li>' + all.length + ' games</li><li>' + phys + ' physical</li><li>' + (all.length - phys) + ' digital</li><li>' + s2 + ' on Switch 2</li>' +
+        '<li class="done">Completed: ' + done + ' of ' + all.length + '</li>';
+    }
+
+    ['input', 'change'].forEach(function (ev) {
+      Object.keys(els).forEach(function (k) { els[k].addEventListener(ev, render); });
+    });
+    stats();
+    render();
+  })();
+  </script>
+</body>
+</html>
