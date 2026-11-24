@@ -57,6 +57,8 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 0; padding: 0; list-style: none; }
     .stats li { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px; padding: 0.15rem 0.7rem; font-size: 0.9rem; font-weight: 600; }
     .stats li.done { background: var(--yellow); color: #3a2a00; border-color: var(--yellow); }
+    .stats li.total { background: #fff; color: var(--red-dark); border-color: #fff; }
+    .value-note { margin: 0.65rem 0 0; font-size: 0.8rem; opacity: 0.92; max-width: 42rem; position: relative; z-index: 1; }
     .cast { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.2rem; margin-top: 0.8rem; height: 6.4rem; }
     .cast img { flex: 1 1 0; min-width: 0; height: 100%; width: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
     .cast img.small { height: 78%; }
@@ -101,6 +103,9 @@
     .console img { width: 100%; height: 6.5rem; object-fit: contain; }
     .console p { margin: 0.35rem 0 0; font-weight: 700; font-size: 0.95rem; line-height: 1.25; }
     .console small { color: var(--muted); font-weight: 400; display: block; }
+    .console .value, .game .value { font-weight: 700; font-size: 0.8rem; color: var(--red-dark); font-variant-numeric: tabular-nums; }
+    .console .value { display: block; margin-top: 0.28rem; }
+    .game .value { margin: 0 0 0.3rem; }
 
     /* Game grid */
     .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
@@ -168,6 +173,7 @@
       <h1>Rich's Nintendo Collection</h1>
       <p>Every game on my shelf and on my Switch, plus what's on the way and what I'm after next.</p>
       <ul class="stats" id="stats"></ul>
+      <p class="value-note">Values are typical eBay UK sold prices (pre-owned median), checked 24 November 2026. Digital games, pre-orders and wish-list games are not valued. One Switch 2 dock is included with the console; the figure shown is for the second dock.</p>
       <div class="cast" aria-hidden="true">
         <img src="images/characters/peach.webp" alt="" width="133" height="240">
         <img src="images/characters/mario.webp" alt="" width="112" height="240">
@@ -221,19 +227,19 @@
       <div class="panel-head"><img src="images/characters/bowser.webp" alt="" width="240" height="240"><h2>Consoles &amp; accessories</h2></div>
       <h3 class="sub">Consoles</h3>
       <div class="consoles">
-        <div class="console"><img src="images/consoles/switch-2.webp" alt="Nintendo Switch 2 with Joy-Con 2 and dock" width="480" height="254" loading="lazy"><p>Nintendo Switch 2</p></div>
-        <div class="console"><img src="images/consoles/switch-lite-yellow.webp" alt="Yellow Nintendo Switch Lite" width="480" height="210" loading="lazy"><p>Nintendo Switch Lite <small>(Yellow)</small></p></div>
+        <div class="console"><img src="images/consoles/switch-2.webp" alt="Nintendo Switch 2 with Joy-Con 2 and dock" width="480" height="254" loading="lazy"><p>Nintendo Switch 2<span class="value">Approx. resale value £312.70</span></p></div>
+        <div class="console"><img src="images/consoles/switch-lite-yellow.webp" alt="Yellow Nintendo Switch Lite" width="480" height="210" loading="lazy"><p>Nintendo Switch Lite <small>(Yellow)</small><span class="value">Approx. resale value £73.50</span></p></div>
       </div>
       <h3 class="sub">Controllers</h3>
       <div class="consoles">
-        <div class="console"><img src="images/consoles/8bitdo-pro-2-g-classic.webp" alt="8BitDo Pro 2 Bluetooth Controller, G Classic Edition, grey with purple buttons" width="480" height="350" loading="lazy"><p>8BitDo Pro 2 <small>(G Classic Edition)</small></p></div>
-        <div class="console"><img src="images/consoles/switch-2-pro-controller.webp" alt="Official Nintendo Switch 2 Pro Controller in black" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Pro Controller</p></div>
+        <div class="console"><img src="images/consoles/8bitdo-pro-2-g-classic.webp" alt="8BitDo Pro 2 Bluetooth Controller, G Classic Edition, grey with purple buttons" width="480" height="350" loading="lazy"><p>8BitDo Pro 2 <small>(G Classic Edition)</small><span class="value">Approx. resale value £26.00</span></p></div>
+        <div class="console"><img src="images/consoles/switch-2-pro-controller.webp" alt="Official Nintendo Switch 2 Pro Controller in black" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Pro Controller<span class="value">Approx. resale value £49.97</span></p></div>
       </div>
       <h3 class="sub">Accessories</h3>
       <div class="consoles">
-        <div class="console"><img src="images/consoles/jsaux-split-case-switch-2.webp" alt="JSAUX Split Protective Case for Nintendo Switch 2, with grip and front cover" width="480" height="480" loading="lazy"><p>JSAUX Split Protective Case <small>(Switch 2, holds 10 game cards)</small></p></div>
-        <div class="console"><img src="images/consoles/switch-lite-flip-cover-grey.webp" alt="Official grey Nintendo Switch Lite Flip Cover, open, showing the inside" width="480" height="270" loading="lazy"><p>Nintendo Switch Lite Flip Cover <small>(Grey, with screen protector)</small></p></div>
-        <div class="console"><img src="images/consoles/switch-2-dock.webp" alt="Nintendo Switch 2 Dock Set, UK, with dock, mains adapter and cables" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Dock&nbsp;×&nbsp;2 <small>(bedroom and living room)</small></p></div>
+        <div class="console"><img src="images/consoles/jsaux-split-case-switch-2.webp" alt="JSAUX Split Protective Case for Nintendo Switch 2, with grip and front cover" width="480" height="480" loading="lazy"><p>JSAUX Split Protective Case <small>(Switch 2, holds 10 game cards)</small><span class="value">Approx. resale value £16.15</span></p></div>
+        <div class="console"><img src="images/consoles/switch-lite-flip-cover-grey.webp" alt="Official grey Nintendo Switch Lite Flip Cover, open, showing the inside" width="480" height="270" loading="lazy"><p>Nintendo Switch Lite Flip Cover <small>(Grey, with screen protector)</small><span class="value">Approx. resale value £14.23</span></p></div>
+        <div class="console"><img src="images/consoles/switch-2-dock.webp" alt="Nintendo Switch 2 Dock Set, UK, with dock, mains adapter and cables" width="480" height="480" loading="lazy"><p>Nintendo Switch 2 Dock&nbsp;×&nbsp;2 <small>(bedroom and living room; one included with the console)</small><span class="value">Approx. resale value £67.50</span></p></div>
       </div>
       <p class="hint">Switch 2 games won't play on the Switch Lite. Everything else plays on both.</p>
     </section>
@@ -259,7 +265,7 @@
     </section>
 
     <footer>
-      <p>Last updated 22 November 2026</p>
+      <p>Last updated 24 November 2026</p>
       <div class="share">
         <img src="qr.png" alt="QR code for this page" width="110" height="110" loading="lazy">
         <p>Scan to share this page</p>
@@ -273,7 +279,7 @@
       </div>
       </div>
       <p class="visits"><span>Visitors:</span><img src="https://hits.sh/kk544nmsbt-sudo.github.io/nintendo-games.svg?label=Visits&amp;color=e60012&amp;labelColor=333333" alt="Visit count" height="34" loading="lazy" referrerpolicy="no-referrer"></p>
-      <p class="small-print">A personal fan page, not affiliated with Nintendo. Game covers and characters are © Nintendo and their publishers.</p>
+      <p class="small-print">A personal fan page, not affiliated with Nintendo. Game covers and characters are © Nintendo and their publishers. Values are estimates from eBay UK sold listings and change over time.</p>
     </footer>
   </div>
 
@@ -285,6 +291,10 @@
      - games: each game has a "completed" true/false, "format" (physical/digital),
        "platform" (Switch / Switch 2), "firstParty", "switch2Upgrade"
        ("edition" = paid Switch 2 Edition available, "free" = free Switch 2 update).
+       Physical games also have "value", the typical eBay UK pre-owned sold median.
+       Digital, pre-order and wish-list games are not valued.
+     - hardware: consoles and accessories with a "value" (the in-box Switch 2 dock
+       is included in the console figure; the second dock is valued on its own).
      - preorders: move a game into "games" (format physical/digital) once it arrives.
      - wishlist: add objects like
        { "title": "Game name", "platform": "Switch 2", "cover": "images/covers/x.webp", "url": "https://..." }
@@ -293,7 +303,7 @@
      - On every publish, bump SITE_VERSION and version.json to the same new value
        so the iPhone Home Screen app picks up the new page.
   ============================================================================ */
-  var SITE_VERSION = "2026-11-22-4";
+  var SITE_VERSION = "2026-11-24-1";
   var PAGE_URL = "https://kk544nmsbt-sudo.github.io/nintendo-games/";
   var FRIEND_CODE = "SW-1144-5258-9613";
   var GAMER_NAME = "Uglybob";
@@ -310,7 +320,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Splatoon-Raiders-2846969.html",
    "cover": "images/covers/splatoon-raiders.webp",
-   "coverType": "art"
+   "coverType": "art",
+   "value": 32.99
   },
   {
    "id": "star-fox",
@@ -323,7 +334,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Star-Fox-3094728.html",
    "cover": "images/covers/star-fox.webp",
-   "coverType": "art"
+   "coverType": "art",
+   "value": 31.99
   },
   {
    "id": "mario-party-jamboree-s2",
@@ -336,7 +348,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Super-Mario-Party-Jamboree-Nintendo-Switch-2-Edition-Jamboree-TV-2785806.html",
    "cover": "images/covers/mario-party-jamboree-s2.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 36.05
   },
   {
    "id": "kirby-forgotten-land-s2",
@@ -349,7 +362,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Kirby-and-the-Forgotten-Land-Nintendo-Switch-2-Edition-Star-Crossed-World-2787773.html",
    "cover": "images/covers/kirby-forgotten-land-s2.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 41.26
   },
   {
    "id": "dk-bananza",
@@ -362,7 +376,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Donkey-Kong-Bananza-2785804.html",
    "cover": "images/covers/dk-bananza.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 38.66
   },
   {
    "id": "metroid-prime-4-s2",
@@ -375,7 +390,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-Edition/Metroid-Prime-4-Beyond-Nintendo-Switch-2-Edition-2790001.html",
    "cover": "images/covers/metroid-prime-4-s2.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 23.58
   },
   {
    "id": "pokemon-pokopia",
@@ -388,7 +404,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Pokemon-Pokopia-2915161.html",
    "cover": "images/covers/pokemon-pokopia.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 41.26
   },
   {
    "id": "zelda-ocarina",
@@ -401,7 +418,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/The-Legend-of-Zelda-Ocarina-of-Time-3115664.html",
    "cover": "images/covers/zelda-ocarina.webp",
-   "coverType": "art"
+   "coverType": "art",
+   "value": 48.49
   },
   {
    "id": "cyberpunk-2077",
@@ -414,7 +432,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Cyberpunk-2077-Ultimate-Edition-2791954.html",
    "cover": "images/covers/cyberpunk-2077.webp",
-   "coverType": "art"
+   "coverType": "art",
+   "value": 37.1
   },
   {
    "id": "pikmin-3-deluxe",
@@ -427,7 +446,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Pikmin-3-Deluxe-1821101.html",
    "cover": "images/covers/pikmin-3-deluxe.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 30.57
   },
   {
    "id": "pikmin-4",
@@ -440,7 +460,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Pikmin-4-2267217.html",
    "cover": "images/covers/pikmin-4.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 29.81
   },
   {
    "id": "mario-galaxy-1-2",
@@ -453,7 +474,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Galaxy-Super-Mario-Galaxy-2-2915270.html",
    "cover": "images/covers/mario-galaxy-1-2.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 38.97
   },
   {
    "id": "nsmbu-deluxe",
@@ -466,7 +488,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/New-Super-Mario-Bros-U-Deluxe-1438640.html",
    "cover": "images/covers/nsmbu-deluxe.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 24.95
   },
   {
    "id": "luigis-mansion-3",
@@ -479,7 +502,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Luigi-s-Mansion-3-1437312.html",
    "cover": "images/covers/luigis-mansion-3.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 19.99
   },
   {
    "id": "mario-kart-8-deluxe",
@@ -492,7 +516,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Kart-8-Deluxe-1173281.html",
    "cover": "images/covers/mario-kart-8-deluxe.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 22.98
   },
   {
    "id": "zelda-totk",
@@ -505,7 +530,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Tears-of-the-Kingdom-1576884.html",
    "cover": "images/covers/zelda-totk.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 31.89
   },
   {
    "id": "smash-ultimate",
@@ -518,7 +544,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Smash-Bros-Ultimate-1395713.html",
    "cover": "images/covers/smash-ultimate.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 29.12
   },
   {
    "id": "mario-wonder",
@@ -531,7 +558,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Bros-Wonder-2404150.html",
    "cover": "images/covers/mario-wonder.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 26.69
   },
   {
    "id": "captain-toad",
@@ -544,7 +572,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Captain-Toad-Treasure-Tracker-1348071.html",
    "cover": "images/covers/captain-toad.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 20.99
   },
   {
    "id": "zelda-echoes",
@@ -557,7 +586,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Echoes-of-Wisdom-2590490.html",
    "cover": "images/covers/zelda-echoes.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 29.99
   },
   {
    "id": "dkc-tropical-freeze",
@@ -570,7 +600,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Donkey-Kong-Country-Tropical-Freeze-1325706.html",
    "cover": "images/covers/dkc-tropical-freeze.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 23.5
   },
   {
    "id": "metroid-dread",
@@ -583,7 +614,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metroid-Dread-1987653.html",
    "cover": "images/covers/metroid-dread.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 42.29
   },
   {
    "id": "metroid-prime-remastered",
@@ -596,7 +628,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Metroid-Prime-Remastered-2341668.html",
    "cover": "images/covers/metroid-prime-remastered.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 30.86
   },
   {
    "id": "witcher-3",
@@ -609,7 +642,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Witcher-3-Wild-Hunt-Complete-Edition-1575086.html",
    "cover": "images/covers/witcher-3.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 32.99
   },
   {
    "id": "mario-maker-2",
@@ -622,7 +656,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Maker-2-1514009.html",
    "cover": "images/covers/mario-maker-2.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 21.07
   },
   {
    "id": "mario-odyssey",
@@ -635,7 +670,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-Odyssey-1173332.html",
    "cover": "images/covers/mario-odyssey.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 23.58
   },
   {
    "id": "mario-3d-world",
@@ -648,7 +684,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Super-Mario-3D-World-Bowser-s-Fury-1832228.html",
    "cover": "images/covers/mario-3d-world.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 23.98
   },
   {
    "id": "paper-mario-ttyd",
@@ -661,7 +698,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Paper-Mario-The-Thousand-Year-Door-2445545.html",
    "cover": "images/covers/paper-mario-ttyd.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 26.18
   },
   {
    "id": "prince-of-persia",
@@ -674,7 +712,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Prince-of-Persia-The-Lost-Crown-2398221.html",
    "cover": "images/covers/prince-of-persia.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 12.0
   },
   {
    "id": "zelda-botw",
@@ -687,7 +726,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/The-Legend-of-Zelda-Breath-of-the-Wild-1173609.html",
    "cover": "images/covers/zelda-botw.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 30.86
   },
   {
    "id": "rabbids-sparks",
@@ -700,7 +740,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Rabbids-Sparks-of-Hope-1986931.html",
    "cover": "images/covers/rabbids-sparks.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 7.59
   },
   {
    "id": "rabbids-kingdom",
@@ -713,7 +754,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Rabbids-Kingdom-Battle-1233954.html",
    "cover": "images/covers/rabbids-kingdom.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 7.59
   },
   {
    "id": "mario-vs-dk",
@@ -726,7 +768,8 @@
    "completed": true,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-vs-Donkey-Kong-2445644.html",
    "cover": "images/covers/mario-vs-dk.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 24.04
   },
   {
    "id": "mario-golf",
@@ -739,7 +782,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Golf-Super-Rush-1923515.html",
    "cover": "images/covers/mario-golf.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 20.99
   },
   {
    "id": "switch-sports",
@@ -752,7 +796,8 @@
    "completed": false,
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Nintendo-Switch-Sports-2168292.html",
    "cover": "images/covers/switch-sports.webp",
-   "coverType": "box"
+   "coverType": "box",
+   "value": 22.05
   },
   {
    "id": "ori-wotw",
@@ -1253,6 +1298,38 @@
    "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-2-games/Turok-Origins-3017602.html",
    "coverType": "art"
   }
+ ],
+ "hardware": [
+  {
+   "item": "Nintendo Switch 2",
+   "value": 312.7,
+   "note": "Median includes one dock"
+  },
+  {
+   "item": "Nintendo Switch Lite (Yellow)",
+   "value": 73.5
+  },
+  {
+   "item": "8BitDo Pro 2 (G Classic Edition)",
+   "value": 26.0
+  },
+  {
+   "item": "Nintendo Switch 2 Pro Controller",
+   "value": 49.97
+  },
+  {
+   "item": "JSAUX Split Protective Case (Switch 2)",
+   "value": 16.15
+  },
+  {
+   "item": "Nintendo Switch Lite Flip Cover (Grey)",
+   "value": 14.23
+  },
+  {
+   "item": "Nintendo Switch 2 Dock × 2",
+   "value": 67.5,
+   "note": "One included with the console; value is for the second dock"
+  }
  ]
 };
   /* ======================== END OF COLLECTION DATA ======================== */
@@ -1357,8 +1434,9 @@
       var img = '<img src="' + esc(g.cover) + '" alt="' + esc(g.title) + ' cover" width="300" height="480" loading="lazy" decoding="async">';
       var cover = g.url ? '<a class="cover" href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" title="Open the official page for ' + esc(g.title) + '">' + img + '</a>'
                         : '<span class="cover">' + img + '</span>';
+      var val = (g.value != null) ? '<p class="value">Approx. resale value ' + gbp(g.value) + '</p>' : '';
       return '<div class="game">' + cover + '<h4>' + esc(g.title) + '</h4>' +
-        (g.publisher ? '<p class="pub">' + esc(g.publisher) + '</p>' : '') + '<div class="badges">' + b + '</div>' + tick + '</div>';
+        (g.publisher ? '<p class="pub">' + esc(g.publisher) + '</p>' : '') + val + '<div class="badges">' + b + '</div>' + tick + '</div>';
     }
 
     var els = {
@@ -1422,13 +1500,21 @@
       document.getElementById('showing').innerHTML = 'Showing <strong>' + n + '</strong> of ' + all.length + ' games';
     }
 
+    function gbp(n) {
+      return '£' + Number(n).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
     function stats() {
       var done = all.filter(function (g) { return g.completed; }).length;
       var phys = all.filter(function (g) { return g.format === 'physical'; }).length;
       var s2 = all.filter(function (g) { return g.platform === 'Switch 2'; }).length;
+      var gamesValue = all.reduce(function (s, g) { return s + (g.value || 0); }, 0);
+      var hardwareValue = (COLLECTION.hardware || []).reduce(function (s, h) { return s + (h.value || 0); }, 0);
       document.getElementById('stats').innerHTML =
         '<li>' + all.length + ' games</li><li>' + phys + ' physical</li><li>' + (all.length - phys) + ' digital</li><li>' + s2 + ' on Switch 2</li>' +
-        '<li class="done">Completed: ' + done + ' of ' + all.length + '</li>';
+        '<li class="done">Completed: ' + done + ' of ' + all.length + '</li>' +
+        '<li class="total">Collection value ' + gbp(gamesValue + hardwareValue) + '</li>' +
+        '<li>Physical games ' + gbp(gamesValue) + '</li>' +
+        '<li>Hardware ' + gbp(hardwareValue) + '</li>';
     }
 
     ['input', 'change'].forEach(function (ev) {
